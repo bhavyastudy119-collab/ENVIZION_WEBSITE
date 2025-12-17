@@ -1,0 +1,522 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Hero Section with Blue Gradient -->
+<section class="page-header py-5 bg-gradient-blue text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h6 class="text-uppercase fw-semibold opacity-75">Gallery</h6>
+                <h1 class="display-4 fw-bold mb-3">Community Impact in Focus</h1>
+                <p class="lead opacity-90 max-w-600">
+                    Witness the transformative journey of communities we serve through 
+                    our AI-powered platform and dedicated partnerships.
+                </p>
+                <div class="mt-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/gallery/3.png') }}" 
+                         alt="Gallery Header"
+                         class="img-fluid rounded-4 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <!-- Gallery Filter -->
+        <div class="text-center mb-5">
+            <h3 class="h4 fw-normal text-muted mb-4">Browse by Category</h3>
+            <div class="gallery-filter btn-group flex-wrap" role="group">
+                <button type="button" class="btn btn-outline-primary active m-1" data-filter="all">All Images</button>
+                <button type="button" class="btn btn-outline-primary m-1" data-filter="education">Education</button>
+                <button type="button" class="btn btn-outline-primary m-1" data-filter="healthcare">Healthcare</button>
+                <button type="button" class="btn btn-outline-primary m-1" data-filter="community">Community</button>
+                <button type="button" class="btn btn-outline-primary m-1" data-filter="training">Training</button>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="row gallery-grid" id="galleryGrid">
+            <!-- Image 1: Education -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 gallery-item" data-category="education">
+                <div class="gallery-card card border-0 shadow-sm h-100">
+                    <div class="gallery-image position-relative overflow-hidden rounded-top">
+                        <img src="{{ url_for('static', filename='assets/gallery/education.png') }}" 
+                             alt="Community Education Program"
+                             class="img-fluid">
+                        <span class="category-badge badge bg-primary position-absolute top-0 end-0 m-3">Education</span>
+                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100">
+                            <div class="overlay-content d-flex align-items-center justify-content-center h-100">
+                                <button class="btn btn-light rounded-circle p-3 view-image" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#imageModal"
+                                        data-image="{{ url_for('static', filename='assets/gallery/education.jpg') }}"
+                                        data-title="Community Education Program"
+                                        data-description="Children participating in our digital literacy workshops in community centers">
+                                    <i class="bi bi-zoom-in fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <h5 class="card-title mb-1">Digital Literacy Workshop</h5>
+                        <p class="card-text text-muted small mb-0">Children learning essential computer skills</p>
+                        <div class="mt-2 text-muted small">
+                            <i class="bi bi-calendar me-1"></i>March 2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image 2: Food Distribution -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 gallery-item" data-category="community">
+                <div class="gallery-card card border-0 shadow-sm h-100">
+                    <div class="gallery-image position-relative overflow-hidden rounded-top">
+                        <img src="{{ url_for('static', filename='assets/gallery/food.png') }}" 
+                             alt="Food Distribution Drive"
+                             class="img-fluid">
+                        <span class="category-badge badge bg-success position-absolute top-0 end-0 m-3">Community</span>
+                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100">
+                            <div class="overlay-content d-flex align-items-center justify-content-center h-100">
+                                <button class="btn btn-light rounded-circle p-3 view-image" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#imageModal"
+                                        data-image="{{ url_for('static', filename='assets/gallery/food.jpg') }}"
+                                        data-title="Food Distribution Drive"
+                                        data-description="Our volunteers distributing nutritious meals to underserved communities">
+                                    <i class="bi bi-zoom-in fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <h5 class="card-title mb-1">Food Distribution Drive</h5>
+                        <p class="card-text text-muted small mb-0">Providing nutritious meals to families</p>
+                        <div class="mt-2 text-muted small">
+                            <i class="bi bi-calendar me-1"></i>January 2023
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image 3: Medical Camp -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 gallery-item" data-category="healthcare">
+                <div class="gallery-card card border-0 shadow-sm h-100">
+                    <div class="gallery-image position-relative overflow-hidden rounded-top">
+                        <img src="{{ url_for('static', filename='assets/gallery/medical.png') }}" 
+                             alt="Medical Health Camp"
+                             class="img-fluid">
+                        <span class="category-badge badge bg-danger position-absolute top-0 end-0 m-3">Healthcare</span>
+                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100">
+                            <div class="overlay-content d-flex align-items-center justify-content-center h-100">
+                                <button class="btn btn-light rounded-circle p-3 view-image" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#imageModal"
+                                        data-image="{{ url_for('static', filename='assets/gallery/medical.jpg') }}"
+                                        data-title="Mobile Health Clinic"
+                                        data-description="Free medical checkups and consultations provided in remote areas">
+                                    <i class="bi bi-zoom-in fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <h5 class="card-title mb-1">Mobile Health Clinic</h5>
+                        <p class="card-text text-muted small mb-0">Free medical checkups in remote areas</p>
+                        <div class="mt-2 text-muted small">
+                            <i class="bi bi-calendar me-1"></i>December 2022
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image 4: Job Training -->
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 gallery-item" data-category="training">
+                <div class="gallery-card card border-0 shadow-sm h-100">
+                    <div class="gallery-image position-relative overflow-hidden rounded-top">
+                        <img src="{{ url_for('static', filename='assets/gallery/vocational.png') }}" 
+                             alt="Vocational Training Session"
+                             class="img-fluid">
+                        <span class="category-badge badge bg-warning position-absolute top-0 end-0 m-3">Training</span>
+                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100">
+                            <div class="overlay-content d-flex align-items-center justify-content-center h-100">
+                                <button class="btn btn-light rounded-circle p-3 view-image" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#imageModal"
+                                        data-image="{{ url_for('static', filename='assets/gallery/vocational.png') }}"
+                                        data-title="Vocational Training Session"
+                                        data-description="Skill development workshop for sustainable employment opportunities">
+                                    <i class="bi bi-zoom-in fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <h5 class="card-title mb-1">Vocational Training</h5>
+                        <p class="card-text text-muted small mb-0">Skill development for sustainable employment</p>
+                        <div class="mt-2 text-muted small">
+                            <i class="bi bi-calendar me-1"></i>November 2022
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Images - Placeholder for more content -->
+            {% for i in range(5, 9) %}
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4 gallery-item" 
+                 data-category="{{ 'education' if i <= 6 else 'community' }}">
+                <div class="gallery-card card border-0 shadow-sm h-100">
+                    <div class="gallery-image position-relative overflow-hidden rounded-top">
+                        <img src="static/assets/gallery/{{ i }}.png" 
+                             alt="Community Impact {{ i }}"
+                             class="img-fluid">
+                        <span class="category-badge badge {{ 'bg-primary' if i <= 6 else 'bg-success' }} position-absolute top-0 end-0 m-3">
+                            {{ 'Education' if i <= 6 else 'Community' }}
+                        </span>
+                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100">
+                            <div class="overlay-content d-flex align-items-center justify-content-center h-100">
+                                <button class="btn btn-light rounded-circle p-3 view-image" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#imageModal"
+                                        data-image="static/assets/gallery/{{ i }}.png"
+                                        data-title="Impact Story {{ i }}"
+                                        data-description="Real stories of transformation through community initiatives">
+                                    <i class="bi bi-zoom-in fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <h5 class="card-title mb-1">Community Program {{ i }}</h5>
+                        <p class="card-text text-muted small mb-0">Real stories of transformation</p>
+                        <div class="mt-2 text-muted small">
+                            <i class="bi bi-calendar me-1"></i>2022
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Video Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3 text-dark">Impact Videos</h2>
+            <p class="lead text-muted max-w-700 mx-auto">
+                Watch our community stories and project highlights to see the real impact of our work
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="video-card card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    title="ENVIZION Journey" 
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold text-dark">Our Journey So Far</h5>
+                            <p class="text-muted">A documentary showcasing our impact in underserved communities across India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="video-card card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" 
+                                    title="Success Stories" 
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold text-dark">Success Stories</h5>
+                            <p class="text-muted">Real people, real impact - hear directly from our beneficiaries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-dark text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Want to See More?</h2>
+                <p class="lead mb-0 opacity-90">
+                    Connect with us to learn more about our ongoing projects and community initiatives.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('home') }}" class="btn btn-light btn-lg">
+                    <i class="bi bi-house-door me-2"></i>Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content border-0">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold text-dark" id="imageModalLabel">Image Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-lg-8 p-0">
+                        <img src="" alt="" class="img-fluid w-100" id="modalImage" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                    <div class="col-lg-4 p-4">
+                        <h6 class="fw-bold mb-3 text-dark">Image Details</h6>
+                        <p id="modalDescription" class="text-muted">Description will appear here</p>
+                        <hr>
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-1"><i class="bi bi-calendar me-2"></i><span id="modalDate">Date information</span></small>
+                            <small class="text-muted d-block"><i class="bi bi-tag me-2"></i><span id="modalCategory">Category information</span></small>
+                        </div>
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-primary w-100 mb-2" id="downloadImage">
+                                <i class="bi bi-download me-2"></i>Download Image
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal">
+                                Close Viewer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gallery Filter
+    const filterButtons = document.querySelectorAll('.gallery-filter button');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            // Filter items
+            galleryItems.forEach(item => {
+                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 100);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+    
+    // Image Modal functionality
+    const viewButtons = document.querySelectorAll('.view-image');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('imageModalLabel');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalDate = document.getElementById('modalDate');
+    const modalCategory = document.getElementById('modalCategory');
+    
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const imageSrc = this.getAttribute('data-image');
+            const imageTitle = this.getAttribute('data-title');
+            const imageDescription = this.getAttribute('data-description');
+            
+            // Find parent card to get additional info
+            const card = this.closest('.gallery-card');
+            const dateElement = card.querySelector('.bi-calendar')?.parentElement;
+            const categoryBadge = card.querySelector('.category-badge');
+            
+            modalImage.src = imageSrc;
+            modalTitle.textContent = imageTitle;
+            modalDescription.textContent = imageDescription;
+            
+            // Extract date text
+            if (dateElement) {
+                modalDate.textContent = dateElement.textContent.replace(' ', '').trim();
+            } else {
+                modalDate.textContent = 'Recent';
+            }
+            
+            // Extract category text
+            if (categoryBadge) {
+                modalCategory.textContent = categoryBadge.textContent;
+            }
+        });
+    });
+    
+    // Download Image functionality
+    document.getElementById('downloadImage').addEventListener('click', function() {
+        const imageSrc = modalImage.src;
+        const imageTitle = modalTitle.textContent;
+        
+        // Create a temporary link to trigger download
+        const link = document.createElement('a');
+        link.href = imageSrc;
+        link.download = `envizion-${imageTitle.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show a brief confirmation
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="bi bi-check2 me-2"></i>Download Started!';
+        this.classList.remove('btn-primary');
+        this.classList.add('btn-success');
+        
+        setTimeout(() => {
+            this.innerHTML = originalText;
+            this.classList.remove('btn-success');
+            this.classList.add('btn-primary');
+        }, 2000);
+    });
+    
+    // Add animation for gallery items on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.gallery-card').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+
+<style>
+/* Blue gradient for header */
+.bg-gradient-blue {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+/* Dark gradient for CTA */
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+}
+
+/* Gallery styling */
+.gallery-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .gallery-image img {
+    transform: scale(1.05);
+}
+
+.gallery-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-card:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.category-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+}
+
+.gallery-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.video-card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.max-w-600 {
+    max-width: 600px;
+}
+
+.max-w-700 {
+    max-width: 700px;
+}
+
+/* Animation classes */
+.animate-visible {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-image {
+        height: 200px;
+    }
+    
+    .gallery-filter .btn {
+        margin: 0.25rem;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+</style>
+{% endblock %}

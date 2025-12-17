@@ -1,0 +1,660 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Donation Header with Blue Gradient -->
+<section class="page-header py-5 bg-gradient-blue text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h6 class="text-uppercase fw-semibold opacity-75">Support Our Mission</h6>
+                <h1 class="display-4 fw-bold mb-3">Make a Difference Today</h1>
+                <p class="lead opacity-90 max-w-600">
+                    Your donation helps us connect underprivileged communities with essential 
+                    services through our AI-powered platform.
+                </p>
+                <div class="impact-stats mt-4">
+                    <div class="d-flex flex-wrap gap-4">
+                        <div>
+                            <h4 class="fw-bold mb-0">₹ 25,00,000+</h4>
+                            <p class="opacity-90 small mb-0">Raised so far</p>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">12,500+</h4>
+                            <p class="opacity-90 small mb-0">Families impacted</p>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">100%</h4>
+                            <p class="opacity-90 small mb-0">Transparent spending</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/gallery/donation.jpg') }}" 
+                         alt="Donation Impact"
+                         class="img-fluid rounded-4 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Donation Options -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3 text-dark">Choose Your Impact Level</h2>
+            <p class="lead text-muted max-w-700 mx-auto">
+                Every contribution, big or small, creates lasting change
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Option 1: Basic Support -->
+            <div class="col-lg-3 col-md-6">
+                <div class="donation-tier card border-0 shadow-sm h-100 text-center">
+                    <div class="card-body p-4">
+                        <div class="tier-icon mb-3">
+                            <i class="bi bi-heart fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-dark">Basic Support</h4>
+                        <h2 class="display-4 fw-bold text-primary mb-3">₹ 500</h2>
+                        <p class="text-muted mb-4">Provides school supplies for 2 children</p>
+                        <button class="btn btn-primary w-100 select-amount" data-amount="50000">
+                            Select This Amount
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 2: Family Support -->
+            <div class="col-lg-3 col-md-6">
+                <div class="donation-tier card border-0 shadow-lg h-100 text-center position-relative popular-tier">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="card-body p-4">
+                        <div class="tier-icon mb-3">
+                            <i class="bi bi-people fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-dark">Family Support</h4>
+                        <h2 class="display-4 fw-bold text-primary mb-3">₹ 2,000</h2>
+                        <p class="text-muted mb-4">Supports a family's monthly necessities</p>
+                        <button class="btn btn-primary w-100 select-amount" data-amount="200000">
+                            Select This Amount
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 3: Education Sponsor -->
+            <div class="col-lg-3 col-md-6">
+                <div class="donation-tier card border-0 shadow-sm h-100 text-center">
+                    <div class="card-body p-4">
+                        <div class="tier-icon mb-3">
+                            <i class="bi bi-mortarboard fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-dark">Education Sponsor</h4>
+                        <h2 class="display-4 fw-bold text-primary mb-3">₹ 5,000</h2>
+                        <p class="text-muted mb-4">Sponsors a child's education for 3 months</p>
+                        <button class="btn btn-primary w-100 select-amount" data-amount="500000">
+                            Select This Amount
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 4: Community Champion -->
+            <div class="col-lg-3 col-md-6">
+                <div class="donation-tier card border-0 shadow-sm h-100 text-center">
+                    <div class="card-body p-4">
+                        <div class="tier-icon mb-3">
+                            <i class="bi bi-award fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3 text-dark">Community Champion</h4>
+                        <h2 class="display-4 fw-bold text-primary mb-3">₹ 10,000</h2>
+                        <p class="text-muted mb-4">Funds vocational training for 5 people</p>
+                        <button class="btn btn-primary w-100 select-amount" data-amount="1000000">
+                            Select This Amount
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Amount -->
+        <div class="row mt-5">
+            <div class="col-lg-6 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-3 text-dark text-center">Custom Donation Amount</h4>
+                        <div class="input-group input-group-lg mb-3">
+                            <span class="input-group-text bg-primary text-white">₹</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="customAmount" 
+                                   placeholder="Enter amount in rupees"
+                                   min="100"
+                                   step="100">
+                        </div>
+                        <button class="btn btn-primary w-100 btn-lg" id="customDonateBtn">
+                            <i class="bi bi-heart me-2"></i>Donate Custom Amount
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Section -->
+<section class="py-5 bg-light" id="paymentSection" style="display: none;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold mb-3 text-dark">Complete Your Donation</h3>
+                            <p class="text-muted mb-0">You're donating: <span id="selectedAmount" class="fw-bold text-primary">₹ 2,000</span></p>
+                        </div>
+
+                        <!-- Donor Information -->
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3 text-dark">Donor Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">Full Name *</label>
+                                    <input type="text" class="form-control" id="donorName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">Email Address *</label>
+                                    <input type="email" class="form-control" id="donorEmail" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">Phone Number</label>
+                                    <input type="tel" class="form-control" id="donorPhone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">PAN Number (for 80G receipt)</label>
+                                    <input type="text" class="form-control" id="donorPAN">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3 text-dark">Payment Method</h5>
+                            <div class="payment-methods">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="upi" checked>
+                                    <label class="form-check-label text-dark" for="upi">
+                                        <i class="bi bi-phone me-2"></i>UPI Payment
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="card">
+                                    <label class="form-check-label text-dark" for="card">
+                                        <i class="bi bi-credit-card me-2"></i>Credit/Debit Card
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="netbanking">
+                                    <label class="form-check-label text-dark" for="netbanking">
+                                        <i class="bi bi-bank me-2"></i>Net Banking
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPI QR Code (shown by default) -->
+                        <div class="text-center mb-4" id="upiSection">
+                            <div class="qr-container p-3 bg-white rounded-3 border d-inline-block">
+                                <div class="text-muted small mb-2">Scan to pay via any UPI app</div>
+                                <!-- Placeholder for UPI QR Code -->
+                                <div class="upi-qr-placeholder bg-light d-flex align-items-center justify-content-center" 
+                                     style="width: 200px; height: 200px; margin: 0 auto;">
+                                    <div class="text-center">
+                                        <i class="bi bi-upc-scan fs-1 text-muted mb-2"></i>
+                                        <div class="text-muted small">UPI QR Code</div>
+                                        <div class="text-primary fw-bold mt-2">envizion@upi</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Payment Form (hidden by default) -->
+                        <div id="cardSection" style="display: none;">
+                            <div class="mb-3">
+                                <label class="form-label text-dark">Card Number</label>
+                                <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">Expiry Date</label>
+                                    <input type="text" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">CVV</label>
+                                    <input type="text" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Submit -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label text-dark" for="termsCheck">
+                                I agree to the terms and conditions and understand that my donation 
+                                will be used for ENVIZION's community development programs. 
+                                <a href="#" class="text-primary text-decoration-none">Read terms</a>
+                            </label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-lg" id="processDonation">
+                                <i class="bi bi-lock me-2"></i>Proceed to Secure Payment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Breakdown -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3 text-dark">How Your Donation Helps</h2>
+            <p class="lead text-muted max-w-700 mx-auto">
+                We ensure every rupee is utilized efficiently for maximum community impact
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="impact-circle mb-3 mx-auto">
+                        <i class="bi bi-graduation-cap fs-1 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">60% Education & Training</h5>
+                    <p class="text-muted">School supplies, digital literacy, vocational training</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="impact-circle mb-3 mx-auto">
+                        <i class="bi bi-heart-pulse fs-1 text-danger"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">25% Healthcare Access</h5>
+                    <p class="text-muted">Medical camps, hygiene kits, mobile clinics</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="impact-circle mb-3 mx-auto">
+                        <i class="bi bi-people fs-1 text-success"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">15% Platform Operations</h5>
+                    <p class="text-muted">AI technology, volunteer coordination, outreach</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3 text-dark">Donor Stories</h2>
+            <p class="lead text-muted max-w-700 mx-auto">
+                Hear from supporters who have made a difference
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="testimonial-card card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar me-3">
+                                <i class="bi bi-person-circle fs-2 text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark">Rahul Sharma</h6>
+                                <small class="text-muted">Monthly Donor</small>
+                            </div>
+                        </div>
+                        <p class="text-muted">
+                            "Seeing the direct impact reports every quarter gives me confidence 
+                            that my donation is making a real difference in children's education."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar me-3">
+                                <i class="bi bi-person-circle fs-2 text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark">Priya Patel</h6>
+                                <small class="text-muted">Corporate Partner</small>
+                            </div>
+                        </div>
+                        <p class="text-muted">
+                            "Our company's CSR funds through ENVIZION have helped establish 
+                            digital learning centers in 3 communities. The transparency is exceptional."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar me-3">
+                                <i class="bi bi-person-circle fs-2 text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark">Amit Kumar</h6>
+                                <small class="text-muted">One-time Donor</small>
+                            </div>
+                        </div>
+                        <p class="text-muted">
+                            "The UPI payment was seamless, and I received my 80G certificate 
+                            instantly. Will definitely donate again during the next campaign."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-gradient-dark text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Ready to Make a Difference?</h2>
+                <p class="lead mb-0 opacity-90">
+                    Your support can transform lives. Every contribution matters.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="#paymentSection" class="btn btn-light btn-lg">
+                    <i class="bi bi-heart me-2"></i>Support Our Mission
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Donation Success Modal -->
+<div class="modal fade" id="donationSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold text-dark">Thank You for Your Support!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="success-icon mb-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-3">Your contribution will create lasting change</h4>
+                <p class="text-muted mb-4">
+                    You have donated <span class="fw-bold text-primary" id="modalDonationAmount">₹ 2,000</span>. 
+                    A confirmation email with your 80G certificate will be sent shortly.
+                </p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                        Continue to Home
+                    </button>
+                    <a href="/gallery" class="btn btn-outline-primary">
+                        View Our Impact Gallery
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Donation amount selection
+    const selectButtons = document.querySelectorAll('.select-amount');
+    const customAmountInput = document.getElementById('customAmount');
+    const customDonateBtn = document.getElementById('customDonateBtn');
+    const paymentSection = document.getElementById('paymentSection');
+    const selectedAmountSpan = document.getElementById('selectedAmount');
+    const modalDonationAmount = document.getElementById('modalDonationAmount');
+
+    // Select predefined amount
+    selectButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const amount = this.getAttribute('data-amount');
+            const displayAmount = formatAmount(amount);
+            
+            selectedAmountSpan.textContent = displayAmount;
+            modalDonationAmount.textContent = displayAmount;
+            paymentSection.style.display = 'block';
+            
+            // Scroll to payment section
+            paymentSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Custom amount donation
+    customDonateBtn.addEventListener('click', function() {
+        const amount = customAmountInput.value;
+        if (!amount || amount < 100) {
+            alert('Please enter an amount of ₹ 100 or more');
+            customAmountInput.focus();
+            return;
+        }
+        
+        const displayAmount = '₹ ' + parseInt(amount).toLocaleString('en-IN');
+        selectedAmountSpan.textContent = displayAmount;
+        modalDonationAmount.textContent = displayAmount;
+        paymentSection.style.display = 'block';
+        
+        // Scroll to payment section
+        paymentSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Payment method toggle
+    const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+    const upiSection = document.getElementById('upiSection');
+    const cardSection = document.getElementById('cardSection');
+
+    paymentMethods.forEach(method => {
+        method.addEventListener('change', function() {
+            if (this.id === 'upi') {
+                upiSection.style.display = 'block';
+                cardSection.style.display = 'none';
+            } else {
+                upiSection.style.display = 'none';
+                cardSection.style.display = 'block';
+            }
+        });
+    });
+
+    // Process donation
+    const processDonationBtn = document.getElementById('processDonation');
+    const termsCheck = document.getElementById('termsCheck');
+    const donorName = document.getElementById('donorName');
+    const donorEmail = document.getElementById('donorEmail');
+
+    processDonationBtn.addEventListener('click', function() {
+        // Validate form
+        if (!donorName.value.trim()) {
+            alert('Please enter your full name');
+            donorName.focus();
+            return;
+        }
+        
+        if (!donorEmail.value.trim()) {
+            alert('Please enter your email address');
+            donorEmail.focus();
+            return;
+        }
+        
+        if (!termsCheck.checked) {
+            alert('Please agree to the terms and conditions');
+            return;
+        }
+
+        // Show success modal (in a real app, this would process payment)
+        const donationSuccessModal = new bootstrap.Modal(document.getElementById('donationSuccessModal'));
+        donationSuccessModal.show();
+    });
+
+    // Helper function to format amount
+    function formatAmount(amount) {
+        const numAmount = parseInt(amount) / 100; // Convert from paise to rupees
+        return '₹ ' + numAmount.toLocaleString('en-IN');
+    }
+
+    // Auto-format custom amount input
+    customAmountInput.addEventListener('input', function() {
+        let value = this.value.replace(/[^\d]/g, '');
+        if (value.length > 0) {
+            value = parseInt(value);
+            this.value = value.toLocaleString('en-IN');
+        }
+    });
+
+    // Initialize popular tier animation
+    const popularTier = document.querySelector('.popular-tier');
+    if (popularTier) {
+        setInterval(() => {
+            popularTier.classList.toggle('shadow-lg');
+            popularTier.classList.toggle('shadow');
+        }, 2000);
+    }
+});
+</script>
+
+<style>
+/* Blue gradient for header */
+.bg-gradient-blue {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+/* Dark gradient for CTA */
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+}
+
+/* Custom styles for donation page */
+.donation-tier {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+.donation-tier:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.popular-tier {
+    border: 2px solid #4361ee;
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tier-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(67, 97, 238, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.impact-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(67, 97, 238, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-card {
+    border-radius: 10px;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    background: rgba(67, 97, 238, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items-center;
+    justify-content: center;
+}
+
+.upi-qr-placeholder {
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+}
+
+.max-w-600 {
+    max-width: 600px;
+}
+
+.max-w-700 {
+    max-width: 700px;
+}
+
+/* Ensure all text is visible */
+.text-dark {
+    color: #212529 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.form-label {
+    color: #495057 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .donation-tier {
+        margin-bottom: 1.5rem;
+    }
+    
+    .popular-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+}
+</style>
+{% endblock %}

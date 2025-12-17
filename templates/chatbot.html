@@ -1,0 +1,508 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Chat Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-dark">
+                    <i class="bi bi-robot me-2"></i>ENVIZION AI Assistant
+                </h1>
+                <p class="lead text-muted">
+                    Select a category to get connected with our main ENVIZION application.
+                </p>
+                <div class="connection-status mb-3">
+                    <span class="badge bg-success" id="statusIndicator">
+                        <i class="bi bi-circle-fill me-1"></i>Assistant Ready
+                    </span>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="card border-0 shadow-lg">
+                <!-- Chat Messages -->
+                <div class="card-body p-0">
+                    <div class="chat-messages p-4" id="chatMessages" style="height: 400px; overflow-y: auto;">
+                        <!-- Welcome Message -->
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <div class="d-flex align-items-start">
+                                    <div class="bot-avatar me-3">
+                                        <i class="bi bi-robot fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <strong>ENVIZION Assistant</strong>
+                                        <div class="mt-2">
+                                            Hello! I'll help you get to the right section of our ENVIZION application.
+                                            Please select what you need help with:
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="row g-2">
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-primary w-100 text-start" onclick="selectCategory('education')">
+                                                        <i class="bi bi-graduation-cap me-2"></i>Education
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-success w-100 text-start" onclick="selectCategory('food')">
+                                                        <i class="bi bi-egg-fried me-2"></i>Food Aid
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-warning w-100 text-start" onclick="selectCategory('employment')">
+                                                        <i class="bi bi-briefcase me-2"></i>Jobs
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-danger w-100 text-start" onclick="selectCategory('health')">
+                                                        <i class="bi bi-heart-pulse me-2"></i>Healthcare
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-info w-100 text-start" onclick="selectCategory('housing')">
+                                                        <i class="bi bi-house me-2"></i>Housing
+                                                    </button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-secondary w-100 text-start" onclick="selectCategory('sanitation')">
+                                                        <i class="bi bi-droplet me-2"></i>Sanitation
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input - Disabled -->
+                <div class="card-footer bg-light p-4">
+                    <div class="alert alert-info mb-0">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Please select a category above. You will be redirected to our main application.
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Redirect Section (Hidden initially) -->
+            <div class="mt-5 text-center" id="appRedirect" style="display: none;">
+                <div class="card border-0 shadow-lg bg-gradient-primary text-white">
+                    <div class="card-body p-5">
+                        <div class="mb-4">
+                            <i class="bi bi-arrow-right-circle display-1"></i>
+                        </div>
+                        <h3 class="fw-bold mb-3">Redirecting to ENVIZION App</h3>
+                        <p class="mb-4 lead">
+                            You will be redirected to our main application for detailed assistance with <span id="selectedCategory" class="fw-bold">your selected category</span>.
+                        </p>
+                        <div class="d-flex flex-column flex-lg-row gap-3 justify-content-center">
+                            <a href="https://envizion-479663f5.base44.app/" 
+                               class="btn btn-light btn-lg px-5"
+                               target="_blank"
+                               id="directAppLink">
+                                <i class="bi bi-rocket-takeoff me-2"></i>Go to ENVIZION App Now
+                            </a>
+                            <button class="btn btn-outline-light btn-lg" onclick="showCategoryPrompt()">
+                                <i class="bi bi-arrow-left me-2"></i>Select Different Category
+                            </button>
+                        </div>
+                        <div class="mt-4">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2 small">Auto-redirecting in <span id="countdown">5</span> seconds...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Prompt Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark">Select a Different Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted mb-3">Select another category:</p>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button class="btn btn-outline-primary w-100 text-start" onclick="selectCategory('education')" data-bs-dismiss="modal">
+                            <i class="bi bi-graduation-cap me-2"></i>Education
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-outline-success w-100 text-start" onclick="selectCategory('food')" data-bs-dismiss="modal">
+                            <i class="bi bi-egg-fried me-2"></i>Food Aid
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-outline-warning w-100 text-start" onclick="selectCategory('employment')" data-bs-dismiss="modal">
+                            <i class="bi bi-briefcase me-2"></i>Jobs
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-outline-danger w-100 text-start" onclick="selectCategory('health')" data-bs-dismiss="modal">
+                            <i class="bi bi-heart-pulse me-2"></i>Healthcare
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-outline-info w-100 text-start" onclick="selectCategory('housing')" data-bs-dismiss="modal">
+                            <i class="bi bi-house me-2"></i>Housing
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-outline-secondary w-100 text-start" onclick="selectCategory('sanitation')" data-bs-dismiss="modal">
+                            <i class="bi bi-droplet me-2"></i>Sanitation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Simple chatbot that directly leads to app
+class DirectChatbot {
+    constructor() {
+        this.messagesContainer = document.getElementById('chatMessages');
+        this.appRedirect = document.getElementById('appRedirect');
+        this.selectedCategorySpan = document.getElementById('selectedCategory');
+        this.directAppLink = document.getElementById('directAppLink');
+        this.countdownSpan = document.getElementById('countdown');
+        this.currentCategory = null;
+        this.countdownInterval = null;
+        this.countdownTime = 5;
+    }
+    
+    selectCategory(category) {
+        this.currentCategory = category;
+        
+        // Category display names
+        const categoryNames = {
+            'education': 'Education',
+            'food': 'Food Aid',
+            'employment': 'Jobs & Employment',
+            'health': 'Healthcare',
+            'housing': 'Housing',
+            'sanitation': 'Sanitation'
+        };
+        
+        const displayName = categoryNames[category] || category;
+        
+        // Add user message
+        this.addMessage(`I need help with ${displayName.toLowerCase()}`, 'user');
+        
+        // Add bot response with delay
+        setTimeout(() => {
+            this.addMessage(`Great! I'm taking you to our ENVIZION app for ${displayName.toLowerCase()} assistance.`, 'bot');
+        }, 500);
+        
+        // Show redirect section with delay
+        setTimeout(() => {
+            this.showAppRedirect(displayName);
+        }, 1500);
+    }
+    
+    showAppRedirect(categoryName) {
+        // Update category text
+        this.selectedCategorySpan.textContent = categoryName.toLowerCase();
+        
+        // Update app link with category parameter
+        this.directAppLink.href = `https://envizion-479663f5.base44.app/?service=${this.currentCategory}`;
+        
+        // Show redirect section
+        this.appRedirect.style.display = 'block';
+        this.appRedirect.scrollIntoView({ behavior: 'smooth' });
+        
+        // Start countdown
+        this.startCountdown();
+    }
+    
+    startCountdown() {
+        let timeLeft = this.countdownTime;
+        this.countdownSpan.textContent = timeLeft;
+        
+        this.countdownInterval = setInterval(() => {
+            timeLeft--;
+            this.countdownSpan.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(this.countdownInterval);
+                // Auto-redirect
+                window.location.href = this.directAppLink.href;
+            }
+        }, 1000);
+    }
+    
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message mb-3`;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+        
+        if (sender === 'bot') {
+            contentDiv.innerHTML = `
+                <div class="d-flex align-items-start">
+                    <div class="bot-avatar me-3">
+                        <i class="bi bi-robot text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>ENVIZION Assistant</strong>
+                        <div class="mt-1">${text}</div>
+                    </div>
+                </div>
+            `;
+        } else {
+            contentDiv.innerHTML = `
+                <div class="text-end">
+                    <strong>You</strong>
+                    <div class="mt-1">${text}</div>
+                </div>
+            `;
+        }
+        
+        messageDiv.appendChild(contentDiv);
+        this.messagesContainer.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+    
+    showCategoryPrompt() {
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+        }
+        
+        this.appRedirect.style.display = 'none';
+        const modal = new bootstrap.Modal(document.getElementById('categoryModal'));
+        modal.show();
+    }
+}
+
+// Initialize chatbot
+let chatbot;
+
+document.addEventListener('DOMContentLoaded', () => {
+    chatbot = new DirectChatbot();
+    
+    // Auto-scroll chat to bottom on load
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+// Make functions globally available
+window.selectCategory = (category) => chatbot.selectCategory(category);
+window.showCategoryPrompt = () => chatbot.showCategoryPrompt();
+</script>
+
+<style>
+/* Chat styling */
+.chat-messages {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.message {
+    animation: fadeIn 0.3s ease;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 80%;
+}
+
+.bot-message .message-content {
+    background-color: white;
+    border: 1px solid #e9ecef;
+}
+
+.user-message .message-content {
+    background-color: #e3f2fd;
+    border: 1px solid #bbdefb;
+    color: #1565c0;
+}
+
+.bot-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #e3f2fd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bot-avatar i {
+    font-size: 1.2rem;
+}
+
+/* Gradient background */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+/* Category buttons */
+.btn-outline-primary {
+    border-color: #4361ee;
+    color: #4361ee;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4361ee;
+    color: white;
+}
+
+.btn-outline-success {
+    border-color: #2ecc71;
+    color: #2ecc71;
+}
+
+.btn-outline-success:hover {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-outline-warning {
+    border-color: #f39c12;
+    color: #f39c12;
+}
+
+.btn-outline-warning:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+.btn-outline-danger {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-outline-info {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-outline-info:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-outline-secondary {
+    border-color: #7f8c8d;
+    color: #7f8c8d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-success:hover,
+.btn-outline-warning:hover,
+.btn-outline-danger:hover,
+.btn-outline-info:hover,
+.btn-outline-secondary:hover {
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .message-content {
+        max-width: 90%;
+    }
+    
+    .chat-messages {
+        height: 350px !important;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Card styling */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+/* Countdown animation */
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+#countdown {
+    font-weight: bold;
+    color: #ffdd40;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Button styles in modal */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-title {
+    color: #212529;
+}
+
+/* Text colors for readability */
+.text-dark {
+    color: #212529 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+</style>
+{% endblock %}
