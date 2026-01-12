@@ -1,633 +1,702 @@
-{% extends "layout.html" %}
-
-{% block content %}
-<!-- Hero Section with Background Video -->
-<section class="hero-section position-relative overflow-hidden min-vh-100 d-flex align-items-center">
-    <!-- Background Video -->
-    <div class="video-background position-absolute top-0 start-0 w-100 h-100">
-        <video autoplay muted loop playsinline class="background-video w-100 h-100 object-fit-cover">
-            <source src="{{ url_for('static', filename='assets/backgrounds/video_background.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <!-- Blue Overlay -->
-        <div class="blue-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - ENVIZION</title>
     
-    <!-- Hero Content -->
-    <div class="container position-relative z-2 text-white">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 text-center">
-                <!-- Motto -->
-                <h2 class="display-3 fw-light mb-3" style="opacity: 0.95; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
-                    Empowering Communities,
-                    <span class="d-block mt-2">Bridging Opportunities</span>
-                </h2>
-                
-                <!-- ENVIZION Title -->
-                <h1 class="display-1 fw-bold mb-4" style="letter-spacing: 2px; text-shadow: 4px 4px 10px rgba(0,0,0,0.4);">
-                    ENVIZION
-                </h1>
-                
-                <!-- Tagline -->
-                <p class="lead mb-5 opacity-95 max-w-700 mx-auto" style="font-size: 1.4rem; line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.2);">
-                    AI-powered platform connecting underprivileged communities with essential services through technology and compassion
-                </p>
-                
-                <!-- CTA Buttons -->
-                <div class="d-flex flex-wrap gap-4 justify-content-center">
-                    <a href="https://envizion-479663f5.base44.app/" 
-                       class="btn btn-primary btn-lg px-5 py-3 glow-effect"
-                       target="_blank">
-                        <i class="bi bi-heart me-1"></i>Find NGOs
-                    </a>
-                    <a href="/donation" 
-                       class="btn btn-outline-light btn-lg px-5 py-3 border-2">
-                        <i class="bi bi-heart me-2"></i>Support Our Mission
-                    </a>
-                </div>
-                
-                <!-- Quick Stats -->
-                <div class="row justify-content-center mt-5 pt-5">
-                    <div class="col-md-3 col-6">
-                        <div class="text-center opacity-95">
-                            <h3 class="fw-bold display-6 mb-2 text-white" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.3);">12.5K+</h3>
-                            <p class="small opacity-90">Families Helped</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center opacity-95">
-                            <h3 class="fw-bold display-6 mb-2 text-white" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.3);">243+</h3>
-                            <p class="small opacity-90">NGO Partners</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center opacity-95">
-                            <h3 class="fw-bold display-6 mb-2 text-white" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.3);">6</h3>
-                            <p class="small opacity-90">SDGs Addressed</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center opacity-95">
-                            <h3 class="fw-bold display-6 mb-2 text-white" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.3);">98%</h3>
-                            <p class="small opacity-90">Success Rate</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/logo/logo.jpg') }}">
     
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator position-absolute bottom-0 start-50 translate-middle-x mb-4">
-        <a href="#statistics" class="text-white text-decoration-none animate-bounce">
-            <i class="bi bi-chevron-down fs-3"></i>
-        </a>
-    </div>
-</section>
-
-<!-- Impact Statistics - Full Width Design -->
-<section class="py-5 bg-white" id="statistics">
-    <div class="container-fluid px-0">
-        <div class="text-center mb-5 px-3">
-            <h6 class="text-uppercase text-primary fw-semibold">Our Impact</h6>
-            <h2 class="display-4 fw-bold mb-3 text-dark">Impact That Creates Change</h2>
-            <p class="lead text-muted max-w-600 mx-auto">
-                Visualizing the difference we make in communities every day
-            </p>
-        </div>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #1E5A3A;
+            --accent-color: #FF6B35;
+            --light-color: #F8F9FA;
+            --dark-color: #212529;
+            --text-color: #333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
         
-        <div class="row g-0">
-            <!-- Stat 1 - Education -->
-            <div class="col-lg-3 col-md-6 position-relative">
-                <div class="impact-square h-100">
-                    <div class="impact-image h-100">
-                        <img src="{{ url_for('static', filename='assets/impact/education.jpg') }}" 
-                             alt="Children Learning in School"
-                             class="img-fluid w-100 h-100 object-fit-cover">
-                        <div class="impact-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white p-4">
-                            <div class="impact-number display-2 fw-bold mb-2">54.5%</div>
-                            <h4 class="fw-bold mb-3">School Attendance Rate</h4>
-                            <p class="mb-0 text-center opacity-90">Increased from 32% in 2020 through our education initiatives</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Stat 2 - Sanitation -->
-            <div class="col-lg-3 col-md-6 position-relative">
-                <div class="impact-square h-100">
-                    <div class="impact-image h-100">
-                        <img src="{{ url_for('static', filename='assets/impact/sanitation.jpg') }}" 
-                             alt="Clean Water Access"
-                             class="img-fluid w-100 h-100 object-fit-cover">
-                        <div class="impact-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white p-4">
-                            <div class="impact-number display-2 fw-bold mb-2">21.61%</div>
-                            <h4 class="fw-bold mb-3">No Toilet Access</h4>
-                            <p class="mb-0 text-center opacity-90">Reduced from 45% through sanitation and hygiene projects</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Stat 3 - Employment -->
-            <div class="col-lg-3 col-md-6 position-relative">
-                <div class="impact-square h-100">
-                    <div class="impact-image h-100">
-                        <img src="{{ url_for('static', filename='assets/impact/employment.jpg') }}" 
-                             alt="Vocational Training"
-                             class="img-fluid w-100 h-100 object-fit-cover">
-                        <div class="impact-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white p-4">
-                            <div class="impact-number display-2 fw-bold mb-2">45.6%</div>
-                            <h4 class="fw-bold mb-3">Formal Employment</h4>
-                            <p class="mb-0 text-center opacity-90">Increased through job training and placement programs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Stat 4 - Families Helped -->
-            <div class="col-lg-3 col-md-6 position-relative">
-                <div class="impact-square h-100">
-                    <div class="impact-image h-100">
-                        <img src="{{ url_for('static', filename='assets/impact/families.jpg') }}" 
-                             alt="Community Support"
-                             class="img-fluid w-100 h-100 object-fit-cover">
-                        <div class="impact-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white p-4">
-                            <div class="impact-number display-2 fw-bold mb-2">12.5K+</div>
-                            <h4 class="fw-bold mb-3">Families Connected</h4>
-                            <p class="mb-0 text-center opacity-90">Through our AI-powered community platform</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Services Section -->
-<section class="py-5 bg-gradient-blue-light" id="services">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h6 class="text-uppercase text-primary fw-semibold">Our Services</h6>
-            <h2 class="display-4 fw-bold mb-3 text-dark">How We Help Communities</h2>
-            <p class="lead text-muted max-w-600 mx-auto">
-                We provide comprehensive support across six essential service areas
-            </p>
-        </div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        <div class="row g-4">
-            <!-- Education -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-primary-subtle p-3 rounded-3">
-                                <i class="bi bi-graduation-cap fs-3 text-primary"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Education</h5>
-                                <p class="text-muted mb-3">School admission, mid-day meals, educational support</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=education" 
-                                   class="btn btn-outline-primary" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Healthcare -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-danger-subtle p-3 rounded-3">
-                                <i class="bi bi-heart-pulse fs-3 text-danger"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Healthcare</h5>
-                                <p class="text-muted mb-3">Medical camps, hygiene kits, healthcare access</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=healthcare" 
-                                   class="btn btn-outline-danger" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Employment -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-warning-subtle p-3 rounded-3">
-                                <i class="bi bi-briefcase fs-3 text-warning"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Employment</h5>
-                                <p class="text-muted mb-3">Job training, placement services, fair wages</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=employment" 
-                                   class="btn btn-outline-warning" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Food Aid -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-success-subtle p-3 rounded-3">
-                                <i class="bi bi-egg-fried fs-3 text-success"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Food Aid</h5>
-                                <p class="text-muted mb-3">Nutrition programs, meal distribution</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=food" 
-                                   class="btn btn-outline-success" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Housing -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-info-subtle p-3 rounded-3">
-                                <i class="bi bi-house fs-3 text-info"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Housing</h5>
-                                <p class="text-muted mb-3">Shelter homes, housing assistance</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=housing" 
-                                   class="btn btn-outline-info" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Sanitation -->
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card card border-0 shadow-lg h-100 hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start">
-                            <div class="service-icon me-3 bg-secondary-subtle p-3 rounded-3">
-                                <i class="bi bi-droplet fs-3 text-secondary"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-2">Sanitation</h5>
-                                <p class="text-muted mb-3">Clean water, toilet facilities</p>
-                                <a href="https://envizion-479663f5.base44.app/?service=sanitation" 
-                                   class="btn btn-outline-secondary" 
-                                   target="_blank">
-                                    Get Help <i class="bi bi-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
         
-        <!-- Central CTA -->
-        <div class="text-center mt-5">
-            <a href="https://envizion-479663f5.base44.app/" 
-               class="btn btn-primary btn-lg px-5 py-3"
-               target="_blank">
-                <i class="bi bi-rocket-takeoff me-2"></i>Access All Services
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #1E5A3A 0%, #2E8B57 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232E8B57' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn-primary-custom {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: #e55a2b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Team Section - FIXED VERSION */
+        .team-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .team-section .section-title {
+            color: #2c3e50;
+        }
+        
+        .team-section .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-image {
+            height: 250px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .card-content .position {
+            color: #3498db;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .social-links a {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+        }
+        
+        .social-links a:hover {
+            color: white;
+            background: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        /* NGO Partners */
+        .ngo-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .ngo-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            transition: var(--transition);
+            height: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .ngo-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .ngo-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Statistics */
+        .stats-section {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-leaf me-2"></i>ENVIZION
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/chatbot">AI Assistant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/donation">Donate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/presentation">Presentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/app-redirect">Web App</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- Team Section on Homepage -->
-<section class="py-5 bg-white" id="team">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h6 class="text-uppercase text-primary fw-semibold">Our Team</h6>
-            <h2 class="display-4 fw-bold mb-3 text-dark">The Visionaries Behind ENVIZION</h2>
-            <p class="lead text-muted max-w-600 mx-auto">
-                Passionate individuals working together to empower communities
-            </p>
-        </div>
-        
-        <div class="row justify-content-center g-4">
-            {% for member in team_members %}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="team-card card border-0 shadow-sm text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="team-image mb-3 mx-auto">
-                            <img src="{{ url_for('static', filename='assets/team/' ~ member.image) }}" 
-                                 alt="{{ member.name }}"
-                                 class="rounded-circle img-fluid">
-                        </div>
-                        <h5 class="fw-bold mb-1">{{ member.name }}</h5>
-                        <p class="text-primary mb-2">{{ member.role }}</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content fade-in-up">
+                    <h1 class="hero-title">AI for Social Equity</h1>
+                    <p class="hero-subtitle">
+                        Bridging the gap between slum communities and essential services 
+                        through artificial intelligence and technology.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="/chatbot" class="btn btn-primary-custom">
+                            <i class="fas fa-robot me-2"></i>Try AI Assistant
+                        </a>
+                        <a href="#team" class="btn btn-outline-light">
+                            <i class="fas fa-users me-2"></i>Meet Our Team
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <img src="{{ url_for('static', filename='assets/hero-illustration.svg') }}" 
+                             alt="Social Equity Illustration" 
+                             style="max-width: 100%; height: auto;"
+                             onerror="this.src='https://cdn.pixabay.com/photo/2020/04/29/07/54/light-5108475_1280.png'">
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Gallery Preview -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h6 class="text-uppercase text-primary fw-semibold">Gallery</h6>
-            <h2 class="display-4 fw-bold mb-3 text-dark">Community Impact</h2>
-            <p class="lead text-muted max-w-600 mx-auto">
-                Witness the positive change we're creating together
-            </p>
-        </div>
-        
-        <div class="row g-3">
-            <!-- Gallery Image 1 -->
-            <div class="col-md-3">
-                <div class="gallery-item position-relative overflow-hidden rounded-3">
-                    <img src="{{ url_for('static', filename='assets/gallery/education.png') }}" 
-                         alt="Community Education"
-                         class="img-fluid w-100 h-100 object-fit-cover">
-                    <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <div class="overlay-content">
-                            <i class="bi bi-zoom-in fs-4 text-white"></i>
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Our Core Features</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 fade-in-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
                         </div>
+                        <h3>AI Assistant</h3>
+                        <p>Intelligent chatbot that connects users with relevant NGOs based on their specific needs and location.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>NGO Network</h3>
+                        <p>Curated database of verified NGOs working in education, health, employment, and essential services.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Impact Analytics</h3>
+                        <p>Real-time data visualization showing community needs and service delivery impact.</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Team Section - FIXED VERSION -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Meet Our Team</h2>
+            <p class="section-subtitle">The brilliant minds behind ENVIZION</p>
             
-            <!-- Gallery Image 2 -->
-            <div class="col-md-3">
-                <div class="gallery-item position-relative overflow-hidden rounded-3">
-                    <img src="{{ url_for('static', filename='assets/gallery/food.png') }}" 
-                         alt="Food Distribution
-                         class="img-fluid w-100 h-100 object-fit-cover">
-                    <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <div class="overlay-content">
-                            <i class="bi bi-zoom-in fs-4 text-white"></i>
+            <div class="team-grid">
+                {% for member in team_members %}
+                <div class="team-card fade-in-up" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                    <div class="card-image">
+                        <img src="{{ member.image_url }}" alt="{{ member.name }}" 
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x250/2E8B57/FFFFFF?text={{ member.name|urlencode }}'">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ member.name }}</h3>
+                        <p class="position">{{ member.role }}</p>
+                        <div class="social-links">
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Gallery Image 3 -->
-            <div class="col-md-3">
-                <div class="gallery-item position-relative overflow-hidden rounded-3">
-                    <img src="{{ url_for('static', filename='assets/gallery/medical.png') }}" 
-                         alt="Medical Camp"
-                         class="img-fluid w-100 h-100 object-fit-cover">
-                    <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <div class="overlay-content">
-                            <i class="bi bi-zoom-in fs-4 text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Gallery Image 4 -->
-            <div class="col-md-3">
-                <div class="gallery-item position-relative overflow-hidden rounded-3">
-                    <img src="{{ url_for('static', filename='assets/gallery/vocational.png') }}" 
-                         alt="Job Training"
-                         class="img-fluid w-100 h-100 object-fit-cover">
-                    <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <div class="overlay-content">
-                            <i class="bi bi-zoom-in fs-4 text-white"></i>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
-        
-        <div class="text-center mt-5">
-            <a href="/gallery" class="btn btn-outline-primary">
-                View Full Gallery <i class="bi bi-images ms-1"></i>
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- CTA Section -->
-<section class="py-5 bg-gradient-dark text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h2 class="display-5 fw-bold mb-3">Ready to Make a Difference?</h2>
-                <p class="lead mb-0 opacity-90">
-                    Join us in creating sustainable change through technology and compassion.
-                </p>
+    <!-- NGO Partners -->
+    <section class="ngo-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Featured NGO Partners</h2>
+            <div class="row">
+                {% for ngo in ngos %}
+                <div class="col-lg-3 col-md-6 fade-in-up" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                    <div class="ngo-card">
+                        <span class="ngo-category">{{ ngo.category|title }}</span>
+                        <h4>{{ ngo.name }}</h4>
+                        <p class="text-muted">{{ ngo.description }}</p>
+                        <div class="mt-3">
+                            <small><i class="fas fa-map-marker-alt me-2"></i>{{ ngo.address }}</small><br>
+                            <small><i class="fas fa-phone me-2"></i>{{ ngo.contact }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <div class="col-lg-4 text-lg-end">
-                <div class="d-flex flex-column flex-lg-row gap-3">
-                    <a href="https://envizion-479663f5.base44.app/" 
-                       class="btn btn-primary btn-lg"
-                       target="_blank">
-                        <i class="bi bi-rocket-takeoff me-2"></i>Use Our App
-                    </a>
-                    <a href="/donation" class="btn btn-light btn-lg">
-                        <i class="bi bi-heart me-2"></i>Donate Now
-                    </a>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-number" data-count="12500">0</div>
+                    <p>Families Reached</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-number" data-count="243">0</div>
+                    <p>Partner NGOs</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-number" data-count="567">0</div>
+                    <p>Volunteers</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-number" data-count="98">0</div>
+                    <p>Success Rate</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-{% endblock %}
+    </section>
 
-{% block scripts %}
-<script>
-// Background video controls
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.querySelector('.background-video');
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="mb-4"><i class="fas fa-leaf me-2"></i>ENVIZION</h3>
+                    <p>Using AI technology to bridge the gap between slum communities and essential social services.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="/">Home</a>
+                        <a href="/chatbot">AI Assistant</a>
+                        <a href="/gallery">Gallery</a>
+                        <a href="/donation">Donate</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Contact</h5>
+                    <div class="footer-links">
+                        <a href="mailto:contact@envizion.org"><i class="fas fa-envelope me-2"></i>contact@envizion.org</a>
+                        <a href="tel:+911234567890"><i class="fas fa-phone me-2"></i>+91 12345 67890</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="mb-4">Follow Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white fs-4"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white fs-4"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white fs-4"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ENVIZION. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    // Ensure video plays
-    if (video) {
-        video.play().catch(e => {
-            console.log('Video autoplay prevented, trying muted play:', e);
-            video.muted = true;
-            video.play().catch(e2 => {
-                console.log('Video still failed to play:', e2);
-                // Show fallback image if video fails
-                const videoContainer = document.querySelector('.video-background');
-                if (videoContainer) {
-                    videoContainer.innerHTML = `
-                        <div class="fallback-image w-100 h-100" 
-                             style="background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);"></div>
-                        <div class="blue-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-                    `;
+    <!-- Custom JS -->
+    <script>
+        // Animate numbers
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const increment = target / speed;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current);
+                        setTimeout(updateCounter, 1);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    
+                    // Animate stats when stats section is visible
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateCounter();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.5rem 0';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.padding = '1rem 0';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
-    }
-    
-    // Animation on scroll for service cards
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-visible');
-            }
+        
+        // Team photo error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamImages = document.querySelectorAll('.card-image img');
+            teamImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    const name = this.alt || 'Team Member';
+                    this.src = `https://via.placeholder.com/300x250/2E8B57/FFFFFF?text=${encodeURIComponent(name)}`;
+                });
+            });
+            
+            // Debug: Log team data
+            console.log('Team members loaded:', {{ team_members|tojson|safe }});
         });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.service-card, .team-card, .gallery-item').forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Impact squares animation
-    const impactObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('impact-visible');
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    document.querySelectorAll('.impact-square').forEach(el => {
-        impactObserver.observe(el);
-    });
-});
-</script>
-
-<style>
-/* Blue Overlay for Video Background */
-.blue-overlay {
-    background: linear-gradient(
-        135deg,
-        rgba(67, 97, 238, 0.7) 0%,      /* Brand blue with opacity */
-        rgba(58, 12, 163, 0.6) 50%,     /* Darker blue with opacity */
-        rgba(44, 62, 80, 0.5) 100%      /* Dark blue-gray with opacity */
-    );
-    z-index: 1;
-    mix-blend-mode: multiply;
-}
-
-/* Ensure content appears above overlay */
-.video-background .background-video {
-    z-index: 0;
-}
-
-.video-background .blue-overlay {
-    z-index: 1;
-}
-
-.container.position-relative.z-2 {
-    z-index: 2;
-}
-
-/* Video container adjustments */
-.video-background {
-    position: relative;
-}
-
-/* Improve text readability on blue overlay */
-.hero-section h1,
-.hero-section h2,
-.hero-section p,
-.hero-section .btn {
-    position: relative;
-    z-index: 2;
-}
-
-/* Make text stand out better */
-.hero-section .text-white {
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Scroll indicator visibility */
-.scroll-indicator {
-    z-index: 2;
-}
-
-/* Button improvements for better visibility */
-.btn-outline-light {
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-.btn-outline-light:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #fff;
-}
-
-/* Stats number styling */
-.hero-section .display-6 {
-    color: #fff !important;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Bounce animation for scroll indicator */
-.animate-bounce {
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-/* Fallback for when video fails */
-.fallback-image {
-    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
-}
-
-/* Video play button styling */
-.video-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 3px solid white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.video-play-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-.video-play-btn i {
-    font-size: 2rem;
-    color: white;
-    margin-left: 5px;
-}
-</style>
-{% endblock %}
+    </script>
+</body>
+</html>
