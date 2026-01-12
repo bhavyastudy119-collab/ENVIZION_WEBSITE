@@ -55,12 +55,12 @@ SAMPLE_NGOS = [
 
 # Team Members Data (for homepage)
 TEAM_MEMBERS = [
-    {'id': 1, 'name': 'Bhavya Jha', 'role': 'Team Leader & Concept Developer', 'image': '/static/assets/team/bhavya.png'},
-    {'id': 2, 'name': 'Vritika', 'role': 'Web Designer & Prototype Developer', 'image': '/static/assets/team/vritika.png'},
-    {'id': 3, 'name': 'Aayushi', 'role': 'Chatbot Developer & User Interaction', 'image': '/static/assets/team/aayushi.png'},
-    {'id': 4, 'name': 'Ebbani', 'role': 'Documentation & Logbook Maintenance',  'image': '/static/assets/team/ebbani.png'},
-    {'id': 5, 'name': 'Shruti', 'role': 'Data Research & Validation Support',  'image': '/static/assets/team/shruti.png'},
-    {'id': 6, 'name': 'Avi', 'role': 'Survey & Field Data Collection', 'image': '/static/assets/team/avi.png'}
+    {'id': 1, 'name': 'Bhavya Jha', 'role': 'Team Leader & Concept Developer', 'image': 'bhavya.png'},
+    {'id': 2, 'name': 'Vritika', 'role': 'Web Designer & Prototype Developer', 'image': 'vritika.png'},
+    {'id': 3, 'name': 'Aayushi', 'role': 'Chatbot Developer & User Interaction', 'image': 'aayushi.png'},
+    {'id': 4, 'name': 'Ebbani', 'role': 'Documentation & Logbook Maintenance',  'image': 'ebbani.png'},
+    {'id': 5, 'name': 'Shruti', 'role': 'Data Research & Validation Support',  'image': 'shruti.png'},
+    {'id': 6, 'name': 'Avi', 'role': 'Survey & Field Data Collection', 'image': 'avi.png'}
 ]
 
 # Gallery Images
@@ -78,11 +78,23 @@ GALLERY_IMAGES = [
 @app.route('/')
 def home():
     """Homepage with team section included"""
+    # Check which team photos actually exist
+    verified_team = []
+    for member in TEAM_MEMBERS:
+        # Build the correct path
+        image_path = os.path.join(app.static_folder, 'assets', 'team', member['image'])
+        if os.path.exists(image_path):
+            # If file exists, use relative path
+            member['image_url'] = f'/static/assets/team/{member["image"]}'
+        else:
+            # If file doesn't exist, use placeholder
+            member['image_url'] = '/static/assets/placeholder.png'
+        verified_team.append(member)
+    
     return render_template('index.html', 
                           title='ENVIZION - AI for Social Equity',
-                          team_members=TEAM_MEMBERS,
+                          team_members=verified_team,
                           ngos=SAMPLE_NGOS)
-
 @app.route('/chatbot')
 def chatbot():
     """Chatbot interface page"""
@@ -94,6 +106,32 @@ def gallery():
     return render_template('gallery.html', 
                           title='Gallery - ENVIZION',
                           gallery_images=GALLERY_IMAGES)
+# Serve team images directly
+@app.route('/team-photo/<filename>')
+def team_photo(filename):
+    """Serve team member photos"""
+    try:
+        return send_from_directory('static/assets/team', filename)
+    except:
+        return send_from_directory('static/assets', 'placeholder.png')
+
+# Debug route to check file structure
+@app.route('/debug-files')
+def debug_files():
+    """Debug endpoint to check available files"""
+    import os
+    result = []
+    
+    # Check team folder
+    team_path = os.path.join(app.static_folder, 'assets', 'team')
+    if os.path.exists(team_path):
+        result.append(f"Team folder exists: {team_path}")
+        files = os.listdir(team_path)
+        result.append(f"Team files: {', '.join(files)}")
+    else:
+        result.append(f"Team folder DOES NOT EXIST: {team_path}")
+    
+    return '<br>'.join(result)
 
 @app.route('/donation')
 def donation():
@@ -274,28 +312,9 @@ def get_intent_from_message(message):
 
 if __name__ == '__main__':
     # Create necessary directories
-    os.makedirs('static/css', exist_ok=True)
-    os.makedirs('static/js', exist_ok=True)
-    os.makedirs('static/assets', exist_ok=True)
-    os.makedirs('templates', exist_ok=True)
+    os.makedirs('static/assets/team', exist_ok=True)
+    os.makedirs('static/assets', exist_ok=True)  # For placeholder
     
-    print("=" * 60)
-    print("ENVIZION Professional Website")
-    print("=" * 60)
-    print("Server running on: http://localhost:5000")
-    print("\nAvailable Pages:")
-    print("  • Home: http://localhost:5000")
-    print("  • AI Assistant: http://localhost:5000/chatbot")
-    print("  • Gallery: http://localhost:5000/gallery")
-    print("  • Donation: http://localhost:5000/donation")
-    print("  • Presentation: http://localhost:5000/presentation")
-    print("  • ENVIZION App: https://envizion-479663f5.base44.app/")
-    print("\nNavigation:")
-    print("  - Team section is now on homepage (scrolling required)")
-    print("  - Removed separate team and help pages")
-    print("  - Resources dropdown links to Canva presentations")
-    print("=" * 60)
-    
-    # Get port from environment variable (for Render)
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    print("\nFile Structure Check:")
+    print(f"  - Team photos should be in: {os.path.join(app.static_folder, 'assets', 'team')}")
+    print("  - Check: http://localhost:5000/debug-files")
