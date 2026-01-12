@@ -55,12 +55,12 @@ SAMPLE_NGOS = [
 
 # Team Members Data (for homepage)
 TEAM_MEMBERS = [
-    {'id': 1, 'name': 'Bhavya Jha', 'role': 'Team Leader & Concept Developer', 'image': 'bhavya.jpg'},
-    {'id': 2, 'name': 'Vritika', 'role': 'Web Designer & Prototype Developer', 'image': 'vritika.jpg'},
-    {'id': 3, 'name': 'Aayushi', 'role': 'Chatbot Developer & User Interaction', 'image': 'aayushi.jpg'},
-    {'id': 4, 'name': 'Ebbani', 'role': 'Documentation & Logbook Maintenance',  'image': 'ebbani.jpg'},
-    {'id': 5, 'name': 'Shruti', 'role': 'Data Research & Validation Support',  'image': 'shruti.jpg'},
-    {'id': 6, 'name': 'Avi', 'role': 'Survey & Field Data Collection', 'image': 'avi.jpg'}
+    {'id': 1, 'name': 'Bhavya Jha', 'role': 'Team Leader & Concept Developer', 'image': 'static/assets/team/bhavya.png'},
+    {'id': 2, 'name': 'Vritika', 'role': 'Web Designer & Prototype Developer', 'image': 'static/assets/team/vritika.png'},
+    {'id': 3, 'name': 'Aayushi', 'role': 'Chatbot Developer & User Interaction', 'image': 'static/assets/team/aayushi.png'},
+    {'id': 4, 'name': 'Ebbani', 'role': 'Documentation & Logbook Maintenance',  'image': 'static/assets/team/ebbani.png'},
+    {'id': 5, 'name': 'Shruti', 'role': 'Data Research & Validation Support',  'image': 'static/assets/team/shruti.png'},
+    {'id': 6, 'name': 'Avi', 'role': 'Survey & Field Data Collection', 'image': 'static/assets/team/avi.png'}
 ]
 
 # Gallery Images
